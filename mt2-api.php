@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 /*
  * metin2 database API by xenor (576-772)
  * visit our server at http://www.xtreamyt2.org
@@ -10,7 +10,7 @@
 if(!defined("MT2API_BUILD")) define("MT2API_BUILD",42);
 define("MT2API_VERSION","0.3.1-".MT2API_BUILD);
 
-#! Patches für Windows Funktionen unter Linux/FreeBSD
+#! Patches fÃ¼r Windows Funktionen unter Linux/FreeBSD
 if(!function_exists("parse_ini_string"))
 {
 	function parse_ini_string($string)
@@ -61,13 +61,13 @@ class Mt2
 		echo "<!--\nMt2 API by xenor\nVisit us at http://www.xtreamyt2.org\nVersion: ".MT2API_VERSION."\nBUILD: ".MT2API_BUILD."\n-->\n";
 		$this->itemproto = include("itemproto.api.php");
 		$this->locale = include("locale.api.php");
-		#! Mods einbinden und erlauben die Mt2-Klasse zu verändern
+		#! Mods einbinden und erlauben die Mt2-Klasse zu verÃ¤ndern
 		$cwd = getcwd();#! Liest das aktuelle Verzeichnis aus
 		if(file_exists($cwd."/mods") && is_dir($cwd."/mods"))#! Falls das Verzeichnis existiert
 		{
 			$files = scandir($cwd."/mods");#! Lies jede Datei aus
 			$api = &$this;
-			foreach($files as $val)#! Für alle Dateien...
+			foreach($files as $val)#! FÃ¼r alle Dateien...
 			{
 				$filename = $cwd."/mods/".$val;#! Dateiname
 				if(is_file($filename))#! Wenns eine Datei ist
@@ -126,7 +126,7 @@ class Mt2
 		return $lager;
 	}
 	
-	private function getFreePosition($window,$owner_id,$size)#! Gibt die nächste freie Inventar Position für die angegebene Größe zurück
+	private function getFreePosition($window,$owner_id,$size)#! Gibt die nÃ¤chste freie Inventar Position fÃ¼r die angegebene GrÃ¶ÃŸe zurÃ¼ck
 	{
 		$lager = array();
 		$sql = "SELECT * FROM ".$this->player.".item WHERE window = '".$window."' AND owner_id = '".$owner_id."'";
@@ -168,7 +168,7 @@ class Mt2
 		return false;
 	}
 
-	private function checkEmailFormat($email)#! Überprüft das Format der E-Mail-Adresse
+	private function checkEmailFormat($email)#! ÃœberprÃ¼ft das Format der E-Mail-Adresse
 	{
 		if(strpos($email,".") === false) return false;
 		if(strpos($email,"@") === false) return false;
@@ -295,7 +295,7 @@ class Mt2
 		}
 	}
 	
-	public function addAccount($a,$check = false)#! Fügt einen Account hinzu und gibt bei Erfolg die Account ID zurück
+	public function addAccount($a,$check = false)#! FÃ¼gt einen Account hinzu und gibt bei Erfolg die Account ID zurÃ¼ck
 	{
 		$this->log($a);
 		$fields = "";
@@ -333,7 +333,7 @@ class Mt2
 		return mysql_insert_id();
 	}
 	
-	public function addItem($accountID,$vnum,$a = array())#! Fügt dem gegebenen Spieler bzw. Account ein Item hinzu und gibt den Erfolg zurück				
+	public function addItem($accountID,$vnum,$a = array())#! FÃ¼gt dem gegebenen Spieler bzw. Account ein Item hinzu und gibt den Erfolg zurÃ¼ck				
 	{
 		if(is_array($vnum))
 		{
@@ -397,7 +397,7 @@ class Mt2
 		return true;
 	}
 	
-	public function isBanned($accountID)#! Gibt zurück ob der gegebene Account gebannt ist
+	public function isBanned($accountID)#! Gibt zurÃ¼ck ob der gegebene Account gebannt ist
 	{
 		$sql = "SELECT * FROM ".$this->account.".account WHERE id = '".$account_id."'";
 		$q = mysql_query($sql);
@@ -411,7 +411,7 @@ class Mt2
 		if($data["status"] == "BLOCK") return true;
 	}
 	
-	public function banAccount($accountID)#! Bannt den gegebenen Account und gibt den Erfolg zurück
+	public function banAccount($accountID)#! Bannt den gegebenen Account und gibt den Erfolg zurÃ¼ck
 	{
 		$sql = "UPDATEUPDATE ".$this->account.".account SET status = 'BLOCK' WHERE id = '".$accountID."'";
 		$this->log("MySQL Query: ".$sql);
@@ -435,7 +435,7 @@ class Mt2
 		}
 	}
 	
-	public function unbanAccount($accountID)#! Entbannt den gegebenen Account und gibt den Erfolg zurück
+	public function unbanAccount($accountID)#! Entbannt den gegebenen Account und gibt den Erfolg zurÃ¼ck
 	{
 		$sql = "UPDATE ".$this->account.".account SET status = 'OK' WHERE id = '".$accountID."'";
 		$this->log("MySQL Query: ".$sql);
@@ -459,7 +459,7 @@ class Mt2
 		}
 	}
 	
-	public function debugCharacter($playerID,$a)#! Entbuggt den Charakter mit der gegebenen ID, es muss ein array mit den daten übergeben werden
+	public function debugCharacter($playerID,$a)#! Entbuggt den Charakter mit der gegebenen ID, es muss ein array mit den daten Ã¼bergeben werden
 	{
 		$x = $a["x"];
 		$y = $a["y"];
@@ -494,7 +494,7 @@ class Mt2
 		}
 	}
 	
-	public function loadConfigFile($configFileName = "config.xml")#! Lädt die in einem Config-File gespeicherten
+	public function loadConfigFile($configFileName = "config.xml")#! LÃ¤dt die in einem Config-File gespeicherten
 	{
 		$rootnode = simplexml_load_file($configFileName);
 		foreach($rootnode->children() as $key => $val)
@@ -535,16 +535,16 @@ class Mt2
 			}
 		}
 		
-		@mysql_close($this->mysql_link);#! Schließt die aktuelle Datenbankverbindung
+		@mysql_close($this->mysql_link);#! SchlieÃŸt die aktuelle Datenbankverbindung
 		$this->mysql_link = mysql_connect(
 								$this->db_host,
 								$this->db_user,
 								$this->db_passwd
-							);#! Öffnet die Verbindung neu, da Daten geändert wurden
+							);#! Ã–ffnet die Verbindung neu, da Daten geÃ¤ndert wurden
 		return true;
 	}
 	
-	public function checkForUpdates()#! Sucht nach Updates und gibt den Erfolg zurück
+	public function checkForUpdates()#! Sucht nach Updates und gibt den Erfolg zurÃ¼ck
 	{
 		$build = constant("MT2API_BUILD");
 		$content = file_get_contents("http://crapcode.lifefight.de/mt2-api/LATEST");
@@ -557,7 +557,7 @@ class Mt2
 		elseif($newbuild > $build)
 		{
 			$version = $cmd[1];
-			return intval($newbuild);#! Gibt den neusten Build zurück
+			return intval($newbuild);#! Gibt den neusten Build zurÃ¼ck
 		}
 		else
 		{
@@ -586,16 +586,16 @@ class Mt2
 				$this->log("Skipping File ".$data[0].": Same MD5 ($md5)<br />\n");
 			}
 		}
-		$this->log("Update zu Build #".$build." ausgeführt.<br />\n");
-		return true;#! immer true zurückgeben
+		$this->log("Update zu Build #".$build." ausgefÃ¼hrt.<br />\n");
+		return true;#! immer true zurÃ¼ckgeben
 	}
 	
-	public function checkAccountFormat($account)#! Prüft ob der Accountname den Anforderungen entspricht
+	public function checkAccountFormat($account)#! PrÃ¼ft ob der Accountname den Anforderungen entspricht
 	{
 		if(strlen($account) < 3 || strlen($account) > 20) return false; else return true;
 	}
 	
-	public function checkAccountName($account,$check = true)#! Prüft ob der Login bereits vergeben ist und gibt den true zurück wenn er frei ist
+	public function checkAccountName($account,$check = true)#! PrÃ¼ft ob der Login bereits vergeben ist und gibt den true zurÃ¼ck wenn er frei ist
 	{
 		if($check == true)
 		{
@@ -613,14 +613,14 @@ class Mt2
 		}
 	}
 	
-	public function checkPw1($passwd)#! Prüft ob das gegebene Passwort den Anforderungen entspricht
+	public function checkPw1($passwd)#! PrÃ¼ft ob das gegebene Passwort den Anforderungen entspricht
 	{
-		if(strlen($passwd) < 6)#! kürzer als 6 zeichen
+		if(strlen($passwd) < 6)#! kÃ¼rzer als 6 zeichen
 		{
 			#! throw new Exception($this->locale->ERR_PW_TOO_SHORT);
 			return false;
 		}
-		if(strlen($passwd) > 24)#! länger als 16 zeichen
+		if(strlen($passwd) > 24)#! lÃ¤nger als 16 zeichen
 		{
 			#! throw new Exception($this->locale->ERR_PW_TOO_LONG);
 			return false;
@@ -628,7 +628,7 @@ class Mt2
 		return true;#! Passwort entspricht den Anforderungen
 	}
 	
-	public function checkPw2($pw1, $pw2)#! Prüft ob die Passwörter übereinstimmen
+	public function checkPw2($pw1, $pw2)#! PrÃ¼ft ob die PasswÃ¶rter Ã¼bereinstimmen
 	{
 		if($pw1 != $pw2)
 		{
@@ -637,13 +637,13 @@ class Mt2
 		}
 		elseif($pw1 == $pw2)
 		{
-			return true;#! Passwörter stimmen überein
+			return true;#! PasswÃ¶rter stimmen Ã¼berein
 		}
 	}
 	
-	public function checkEMail($email,$check = true)#! Prüft ob die E-Mail-Adresse bereits vergeben ist
+	public function checkEMail($email,$check = true)#! PrÃ¼ft ob die E-Mail-Adresse bereits vergeben ist
 	{
-		if(!$this->checkEmailFormat($email))#! Überprüft das Format der Adresse
+		if(!$this->checkEmailFormat($email))#! ÃœberprÃ¼ft das Format der Adresse
 		{
 			return false;
 		}
@@ -706,7 +706,7 @@ class Mt2
 		}
 	}
 	
-	public function checkHash($accID, $hash)#! Überprüft den gegebenen Hash
+	public function checkHash($accID, $hash)#! ÃœberprÃ¼ft den gegebenen Hash
 	{
 		$accID = intval($accID);#! Maskiere die AccountID
 		$sql = "SELECT activation_hash FROM ".$this->account.".account WHERE id = '".$accID."' LIMIT 1";
@@ -719,7 +719,7 @@ class Mt2
 		$data = mysql_fetch_object($q);
 		if($data->activation_hash == $hash)
 		{
-			return true;#! Wenn die Hashs übereinstimmen
+			return true;#! Wenn die Hashs Ã¼bereinstimmen
 		}
 		else
 		{
@@ -772,7 +772,7 @@ class Mt2
 		}
 	}
 	
-	public function checkLoginData($login,$passwd)#! Überprüft ob der Account existiert und so
+	public function checkLoginData($login,$passwd)#! ÃœberprÃ¼ft ob der Account existiert und so
 	{
 		$login = mysql_real_escape_string($login);
 		$passwd = mysql_real_escape_string($passwd);
@@ -801,7 +801,7 @@ class Mt2
 	{
 		foreach($this->mods as $key => $val)
 		{
-			if(method_exists($val,$name))#! Prüft ob die Funktion in den Mods existiert
+			if(method_exists($val,$name))#! PrÃ¼ft ob die Funktion in den Mods existiert
 			{
 				return $val->$name($args);#! Ruft die Funktion auf
 			}
@@ -841,7 +841,7 @@ class Mt2
 		$i = 0;
 		while($data = mysql_fetch_object($q))
 		{
-			$i++;#! Platz wird um eins erhöht
+			$i++;#! Platz wird um eins erhÃ¶ht
 			$return[$i] = (object) array(
 				"place" => $i,
 				"name" => $data->name,
@@ -876,7 +876,7 @@ class Mt2
 		}
 	}
 	
-	public function isIE()#! Gibt zurück ob der Besucher der Webseite den Internet Explorer benutzt
+	public function isIE()#! Gibt zurÃ¼ck ob der Besucher der Webseite den Internet Explorer benutzt
 	{
 		if(strpos($_SERVER["HTTP_USER_AGENT"],"MSIE") !== false)
 		{
@@ -888,7 +888,7 @@ class Mt2
 		}
 	}
 	
-	public function itemshop_getCats()#! Gibt ein Array der Itemshop Kategorien zurück
+	public function itemshop_getCats()#! Gibt ein Array der Itemshop Kategorien zurÃ¼ck
 	{
 		$cats = array();
 		foreach($this->itemshop as $key => $val)
@@ -898,7 +898,7 @@ class Mt2
 		return $cats;
 	}
 	
-	public function itemshop_getItems($cat)#! Gibt ein Array mit allen Items der Kategorie zurück
+	public function itemshop_getItems($cat)#! Gibt ein Array mit allen Items der Kategorie zurÃ¼ck
 	{
 		if(isset($this->itemshop[$cat]))
 		{
@@ -915,7 +915,7 @@ class Mt2
 		return $this->itemshop[$cat]->items[$id];
 	}
 	
-	public function itemshop_get()#!Gibt den Itemshop zurück; Für Profis
+	public function itemshop_get()#!Gibt den Itemshop zurÃ¼ck; FÃ¼r Profis
 	{
 		return $this->itemshop;
 	}
