@@ -1,0 +1,264 @@
+﻿
+############################################################################################
+##   METIN 2 DATENBANK APPLICATION PROGRAMMING INTERFACE BY XENOR -- DOCUMENTATION FILE   ##
+############################################################################################
+
+############################
+##     Informationen:     ##
+############################
+
+Diese API soll die Webseiten-Programmierung vereinfachen. Sie ist keinesfalls ein fertiges Script, und man braucht grundlegende bis fortgeschrittene Kenntnisse in PHP um sie zu benutzen.
+-> Kenntnisse von MySQL sind bei Verwendung dieses Scripts nicht mehr erforderlich und Fehler in der Syntax ebendieser gehören der Vergangenheit an.
+Es hat mich viel Zeit gekostet, dieses Script zu schreiben und zu perfektionieren; und ich denke ich werde nie damit aufhören, da es nie 100% fertig sein wird
+Es soll eine Vereinfachung sein, die auf meinen Metin2 Webseiten schon zum Einsatz kommt; Es soll erhöhte Sicherheit bieten und die Programmierung vereinfachen.
+Und nein, hiermit kann man nicht in 10 Minuten eine ganze Webseite erstellen. Eine Webseite schreiben ist ein komplexer Vorgang, zumindest bei mir.
+Diese Hilfestellung ist auch nicht für PHP/HTML/CSS-Neulinge geeignet, da sie gewisse Grundkenntnisse erfordert.
+Nachfolgend habe ich alle Funktionen der API aufgelistet; Vielleicht solltest du dir die Rückgabewerte genau angucken, falls irgendwo ein Fehler auftritt ;)
+Dazu könntest du var_dump(mixed $var); benutzen; Es  zeigt dir sowohl den Typ als auch den Wert an :D
+Die API schmeißt bei Fehlern gerne Exceptions, benutze daher bei Funktionen, die fehlschlagen könnten das try-catch-Konstrukt.
+
+#############################
+##   Funktionsübersicht:   ##
+#############################
+
+__init():
+
+Öffnet die Datenbankverbindung und gibt bei Erfolg true, andernfalls false zurück
+
+------------------------------------------------------
+
+say(mixed $a):
+
+Formatiert text HTML style (zeilenumbrüche, leerzeichen)
+Oft in verbindung mit print_r benutzt
+
+------------------------------------------------------
+
+log(string $str):			[PRIVATE]
+
+Gibt den string $str als Log-Text aus (er wird nur im debugmodus in den output geschrieben)
+
+------------------------------------------------------
+
+setDebug(bool $bool):
+
+setzt den Debugmodus zu $bool ( true | false )
+
+------------------------------------------------------
+
+setDry(bool $bool):
+
+setzt den Trockendockmodus zu $bool ( true | false )
+Änderungen werden bei aktiviertem Modus nicht in die Datenbank geschrieben.
+
+------------------------------------------------------
+
+updateGMIP(string $playerName,string $ip):
+
+Updatet die GameMaster IP des Spielers mit dem Name $playerName zu der IP $ip;
+Gibt true oder false zurück
+
+------------------------------------------------------
+
+makeGM(int $playerID,string $ip,string $auth,[string $prefix]):
+
+Macht den angegebenen Spieler zum GM
+Alle Parameter außer $prefix werden benötigt.
+Die Funktion erstellt einen Eintrag in der common.gmlist und ändert, wenn $prefix gegeben ist, den namen des spielers in player.player
+Aus dem Spieler xenor würde also [GM]xenor, wenn $prefix = "[GM]" ist.
+$auth beschreibt den Level des GMs also IMPLEMENTOR, HIGH_WIZARD, GOD oder LOW_WIZARD
+Gibt true oder false zurück.
+
+------------------------------------------------------
+
+addAccount(array $a,[bool $check]):
+
+Erstellt einen Account mit den Daten, die im Array $a übergeben wurden
+Wenn also $a = array("login" => "xenor", "password" => "passwort"); wird ein account mit diesen daten erstellt.
+Wenn $check gegeben und true ist, werden die werte maskiert, und MySQL-Injections werden verhindert.
+
+------------------------------------------------------
+
+addItem(int $accountID,mixed $vnum,[$a]):
+
+Erstellt ein Item und fügt es dem Spieler $accountID hinzu.
+Anmerkung: Wenn das Item dem Equipment oder dem Inventar hinzugefügt werden soll, muss die Spieler ID statt der Account ID übergeben werden
+Wenn in $a nicht anders definiert, wird das Item dem Itemshop-Lager hinzugefügt.
+Es kann auch ein Array von VNums übergeben werden; dann wird ein zufälliges Item aus der Liste gewählt.
+
+------------------------------------------------------
+
+isBanned(int $accountID):
+
+gibt true zurück, wenn der account gebannt ist, false wenn nicht.
+
+------------------------------------------------------
+
+banAccount(int $accountID):
+
+bannt den gegebenen Account.
+Gibt bei Erfolg true zurück, bei fehler false.
+
+------------------------------------------------------
+
+unbanAccount(int $accountID):
+
+unbannt den gegebenen Account.
+Gibt bei Erfolg true zurück, bei fehler false.
+
+------------------------------------------------------
+
+debugCharacter(int $playerID, array $a):
+
+entbuggt den gegebenen Charakter, indem er ihn auf die gegebenen Koordinaten und Map portet
+$a muss folgendes format haben:
+$a = array(
+	"x" => 522,		// x-koordinate
+	"y" => 922,		// y-koordinate
+	"map" => 11,	// map index
+);
+gibt bei erfolg true zurück, bei fehler false
+
+------------------------------------------------------
+
+loadConfigString(string $str):
+
+Veraltete Funktion; mit neuem XML-Konfigurationsdateiformat nicht kompatibel
+Stattdessen die Funktion loadConfigFile verwenden!
+
+------------------------------------------------------
+
+loadConfigFile(string $configFileName):
+
+Lädt die angegebene Konfigurationsdatei.
+Beispiel in der example.xml
+
+------------------------------------------------------
+
+checkForUpdates():
+
+Überprüft ob auf dem Update-Server eine neuere Version zur Verfügung steht.
+Gibt die neuste Version zurück, bzw false wenn die Version aktuell ist.
+
+------------------------------------------------------
+
+installUpdate(int $build):
+
+Downloaded und installiert den gegebenen Build vom Update-Server.
+
+------------------------------------------------------
+
+checkAccountFormat(string $account):
+
+Prüft ob der Accountname den Anforderungen entspricht.
+
+------------------------------------------------------
+
+checkAccountName(string $account,[bool $check]):
+
+Prüft ob der Login bereits vergeben ist und gibt den true zurück wenn er frei ist.
+wenn $check = true ist wird der String maskiert
+
+------------------------------------------------------
+
+checkPw1(string $pw):
+
+Überprüft, ob das Passwort sicher ist.
+
+------------------------------------------------------
+
+checkPw2(string $pw1, string $pw2):
+Überprüft, ob die passwörter übereinstimmen und gibt true zurück, wenn das so ist
+
+------------------------------------------------------
+
+checkEMail(string $email,[bool $check]):
+
+Überprüft ob die gegebene E-Mail-Adresse gültig und noch nicht vergeben ist, und gibt dann true zurück, sonst false.
+
+------------------------------------------------------
+
+sendValidationEmail(string $email,int $accID,[bool $check]):
+
+Sendet eine Bestätigungs-E-Mail zur der gegebenen E-Mail-Adresse.
+Wenn $check gegeben ist und gleich true, wird die E-Mail maskiert.
+
+------------------------------------------------------
+
+checkHash(int $accID, string $hash):
+
+Überprüft, ob der gegebene Hash für den gegebenen User korrekt ist und gibt true bzw. false zurück
+
+------------------------------------------------------
+
+activateAccount(int $accID, [bool $check]):
+
+Aktiviert den Account.
+Wenn $check gegeben ist und gleich true, wird die account id maskiert.
+
+------------------------------------------------------
+
+deactivateAccount(int $accID, [bool $check]):
+
+Aktiviert den Account.
+Wenn $check gegeben ist und gleich true, wird die account id maskiert.
+
+------------------------------------------------------
+
+checkLoginData(string $login,string $passwd):
+
+Überprüft ob der Account existiert, und wenn ja wird true zurückgegeben.
+
+------------------------------------------------------
+
+getData(int $accID):
+
+Holt die Accountdaten aus der DB und gibt sie als Objekt zurück.
+
+------------------------------------------------------
+
+getHighscore():
+
+Holt den Highscore aus der Datenbank und gibt ihn als mutlidimensionales Array zurück.
+
+------------------------------------------------------
+
+update(int $accID,string $table,array $a):
+
+Updatet den gegebenen User.
+$table muss im format "<Datenbankname>.<Tabellenname>" übergeben werden.
+Das Array $a enthält im format "schlüssel" => "wert" die neuen Werte.
+Gibt bei Erfolg true zurück.
+
+------------------------------------------------------
+
+isIE():
+
+Gibt zurück, ob der behindertste Browser Ever (aka. Internet Explorer) benutzt wird.
+
+------------------------------------------------------
+
+itemshop_getCats():
+
+Gibt ein Array mit den Itemshop-Kategorien zurück.
+
+------------------------------------------------------
+
+itemshop_getItems(int $cat):
+
+Gibt ein Array mit den Items in der gegebenen Katogorie zurück.
+
+------------------------------------------------------
+
+itemshop_itemdata(int $cat, int $id):
+
+Gibt die Itemdaten zurück, als Objekt.
+
+------------------------------------------------------
+
+itemshop_get():
+Gibt das Itemshop-Objekt zurück.
+Wird vermutlich nicht benötigt.
+FÜR PROFIS!
+
+------------------------------------------------------

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<option>
+		<name>db_host</name>
+		<value>localhost</value>
+	</option>
+	<option>
+		<name>db_user</name>
+		<value>root</value>
+	</option>
+	<option>
+		<name>db_passwd</name>
+		<value></value>
+	</option>
+	<option>
+		<name>account</name>
+		<value>account</value>
+	</option>
+	<option>
+		<name>common</name>
+		<value>common</value>
+	</option>
+	<option>
+		<name>player</name>
+		<value>player</value>
+	</option>
+	<option>
+		<name>from_header</name>
+		<value>idontuseaconfigfile@crapcode.lifefight.de</value>
+	</option>
+	<option>
+		<name>mail_subject</name>
+		<value>mt2api-driven server</value>
+	</option>
+	<option>
+		<name>mail_content</name>
+		<value><![CDATA[<html><body>Hallo %username%<br/>Bitte klicke auf den folgenden Link, um deinen Account zu aktivieren: %link%<br/>MfG dein Servername-Team</body></html>]]></value>
+	</option>
+	<option>
+		<name>mail_linktxt</name>
+		<value>Account aktivieren</value>
+	</option>
+	<option>
+		<name>mail_hash_paramname</name>
+		<value>hash</value>
+	</option>
+	<option>
+		<name>mail_acc_paramname</name>
+		<value>acc_id</value>
+	</option>
+	<option>
+		<name>mail_activationfilename</name>
+		<value>/activate.php</value>
+	</option>
+	<option>
+		<name>verifyMods</name>
+		<value>true</value>
+	</option>
+	<itemshop>
+		<category id="1" name="Schwerter">
+			<item id="1">
+				<name>Schwert+9</name>
+				<picture>19</picture>
+				<vnum>19</vnum>
+				<money>50</money>
+				<desc>Ein einzigartiges Schwert. Es vereint alle Kräfte in seinem Stahl.</desc>
+			</item>
+			<item id="2">
+				<name>Schwert+8</name>
+				<picture>19</picture>
+				<vnum>18</vnum>
+				<money>50</money>
+				<desc>Ein einzigartiges Schwert. Es vereint alle Kräfte in seinem Stahl.</desc>
+			</item>
+		</category>
+		<category id="2" name="Schwerter 2">
+			<item id="3">
+				<name>Schwert+7</name>
+				<picture>19</picture>
+				<vnum>17</vnum>
+				<money>50</money>
+				<desc>Ein einzigartiges Schwert. Es vereint alle Kräfte in seinem Stahl.</desc>
+			</item>
+		</category>
+	</itemshop>
+</config>
