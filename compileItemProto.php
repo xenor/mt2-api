@@ -1,4 +1,7 @@
 <?php
+
+// Liest alle Items aus der Datenbank und schreibt ihre Größen in die itemproto.api.php, die von der API für die Lagereinteilung benutzt wird.
+
 $host = "localhost";
 $user = "root";
 $passwd = "";
