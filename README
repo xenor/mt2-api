@@ -18,6 +18,17 @@ Dazu könntest du var_dump(mixed $var); benutzen; Es  zeigt dir sowohl den Typ a
 Die API schmeißt bei Fehlern gerne Exceptions, benutze daher bei Funktionen, die fehlschlagen könnten das try-catch-Konstrukt.
 
 #############################
+##  Kontaktinformationen:  ##
+#############################
+
+ICQ: 576-772
+Jabber: xenor@jabber.org
+YouTube: xenorOfficial
+
+Bugs können sowohl hier auf GitHub, als auch an mich direkt gepostet werden.
+Leute die mich nerven werden ignoriert.
+
+#############################
 ##   Funktionsübersicht:   ##
 #############################
 
