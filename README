@@ -243,6 +243,24 @@ Gibt bei Erfolg true zurück.
 
 ------------------------------------------------------
 
+select_raw(string $query):
+
+Gibt die erfassten Datensätze als Objekte-Array zurück.
+Beispiel:
+$q = $mt2->select_raw("SELECT id FROM account WHRE login = 'xenor'");
+$id = $q[0]->id;		# <- erstes result, feld id
+
+------------------------------------------------------
+
+select(string $fields,string $table[, string $where])
+
+Zieht die Felder $fields (<field1>,<field2>,...,<fieldn>) aus der datenbank.tabelle $table, wo $where.
+Technisch gesehen wird die Query so aufgebaut:
+
+	SELECT $fields FROM $table [WHERE $where]
+
+------------------------------------------------------
+
 isIE():
 
 Gibt zurück, ob der behindertste Browser Ever (aka. Internet Explorer) benutzt wird.

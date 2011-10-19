@@ -884,24 +884,24 @@ class Mt2
 		}
 	}
 	
-        public function select_raw($sql)
-        {
+	public function select_raw($sql)
+	{
 		$q = mysql_query($sql);
-                if($q)
-                {
-                    $ret = array();
-                    while($data = mysql_fetch_object($q))
-                    {
-                            $ret[] = $data;
-                    }
-                    return $ret;
-                }
-                else
-                {
-                        throw new Exception($this->locale->ERR_MYSQL.": ".mysql_error());
-                        return false;
-                }
-        }
+		if($q)
+		{
+			$ret = array();
+			while($data = mysql_fetch_object($q))
+			{
+					$ret[] = $data;
+			}
+			return $ret;
+		}
+		else
+		{
+				throw new Exception($this->locale->ERR_MYSQL.": ".mysql_error());
+				return false;
+		}
+	}
         
 	public function select($fields,$table,$where="")#!Select $fields aus $table, $where
 	{
@@ -911,20 +911,20 @@ class Mt2
 			$sql .= " WHERE $where";
 		}
 		$q = mysql_query($sql);
-                if($q)
-                {
-                    $ret = array();
-                    while($data = mysql_fetch_object($q))
-                    {
-                            $ret[] = $data;
-                    }
-                    return $ret;
-                }
-                else
-                {
-                        throw new Exception($this->locale->ERR_MYSQL.": ".mysql_error());
-                        return false;
-                }
+		if($q)
+		{
+			$ret = array();
+			while($data = mysql_fetch_object($q))
+			{
+					$ret[] = $data;
+			}
+			return $ret;
+		}
+		else
+		{
+				throw new Exception($this->locale->ERR_MYSQL.": ".mysql_error());
+				return false;
+		}
 	}
 	
 	public function isIE()#! Gibt zur�ck ob der Besucher der Webseite den Internet Explorer benutzt
