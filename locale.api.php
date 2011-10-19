@@ -14,4 +14,6 @@ $locale = (object) array(
 	"ERR_PW_TOO_LONG" => "Das Passwort ist zu lang",
 );
 return $locale;
+
+
 ?>
